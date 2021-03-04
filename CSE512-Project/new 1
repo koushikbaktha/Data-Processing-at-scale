@@ -1,0 +1,11 @@
+First, I hard code neighbors...there are either 27, 18, 12, or 8 depending on where the cell is located (on a boundary or not)...If one boundary of map, then 18, if 2, then 12, etc if none 27 5:13 
+var NeighborInfo = spark.sql("select NeighborCount(ppc1.x, ppc1.y, ppc1.z, " + minX + "," + maxX + "," + minY + "," + maxY + "," + minZ + "," + maxZ + ") as neighborCount, 
+"               + "ppc1.x as x, ppc1.y as y, ppc1.z as z,
+ "               + "sum(ppc2.pickupcount) as sumofpickupcount
+ "               + "from PickupsPerCell as ppc1, PickupsPerCell as ppc2 
+ "               + "where (ppc2.x = ppc1.x-1 or ppc2.x = ppc1.x or ppc2.x = ppc1.x+1)
+ "   //Getting all the combinations of the cell coordinates surrounding the cell in question               
+ + "and (ppc2.y = ppc1.y-1 or ppc2.y = ppc1.y or ppc2.y = ppc1.y+1)"               
+ + "and (ppc2.z = ppc1.z-1 or ppc2.z = ppc1.z or ppc2.z = ppc1.z+1)"               
+ + "group by ppc1.x, ppc1.y, ppc1.z ").persist()   
+ NeighborInfo.createOrReplaceTempView("NeighborInfo")

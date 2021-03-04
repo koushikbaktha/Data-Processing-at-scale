@@ -1,0 +1,3 @@
+test/output hotcellanalysis src/resources/yellow_tripdata_2009-01_point.csv
+
+spark-submit --class cse512.Entrance C:\CSE512-Project-Hotspot-Analysis-Template-master\target\scala-2.11\CSE512-Hotspot-Analysis-Template-assembly-0.1.0.jar test/output hotcellanalysis src/resources/yellow_trip_sample_100000.csv
